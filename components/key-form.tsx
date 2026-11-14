@@ -5,6 +5,7 @@ import {
   decryptGuideBytes,
   encryptBytesForBattletag,
 } from "@/lib/rxp-crypto";
+import { UPDATED_AT, formatAgo } from "@/lib/build-info";
 import { FOREVER_GUIDE } from "@/lib/guides";
 
 const BATTLETAG_RE = /^.+#\d{2,}$/;
@@ -85,6 +86,18 @@ export function KeyForm() {
         {status.kind === "done" && (
           <span className="text-green-400">
             {status.guides} guides bound to {trimmed}. Import ingame via addon.
+            {/*
+              Only ever rendered after a click, so this is never in the
+              prerendered HTML — a relative string here is hydration-safe.
+              It is the moment a visitor cares whether what they just grabbed
+              is current.
+            */}
+            {UPDATED_AT && (
+              <span className="text-muted-foreground/60">
+                {" "}
+                Guide updated {formatAgo(UPDATED_AT)}.
+              </span>
+            )}
           </span>
         )}
         {status.kind === "error" && (

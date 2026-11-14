@@ -23,7 +23,15 @@ jobs:
       # shows up as a blank page with 404ing /_next/* requests.
       NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
     steps:
+      # fetch-depth: 0 so the `git log -1 -- public` probe in next.config.ts can
+      # see the commit that actually last changed the guide blobs. At the default
+      # depth of 1 it only sees HEAD, which degrades the stamp to plain push time
+      # on rebuilds that did not touch the content. Repo is ~2 MB, so a full
+      # clone costs nothing; set NEXT_PUBLIC_UPDATED_AT here instead if that ever
+      # changes.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:

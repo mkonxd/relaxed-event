@@ -1,4 +1,5 @@
 import { KeyForm } from "@/components/key-form";
+import { LastUpdated } from "@/components/last-updated";
 
 export default function Home() {
   return (
@@ -9,9 +10,11 @@ export default function Home() {
         <h1 className="font-[var(--font-cinzel)] mb-1 text-center text-2xl font-bold tracking-wide text-gold-bright md:text-3xl">
           WoW Forever Leveling Guide
         </h1>
-        <p className="mb-6 text-center text-sm text-muted-foreground">
+        <p className="mb-1 text-center text-sm text-muted-foreground">
           Enter your BattleTag to get a key bound to it.
         </p>
+
+        <LastUpdated className="mb-6" />
 
         <KeyForm />
 
